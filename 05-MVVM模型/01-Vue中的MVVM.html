@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue中的MVVM</title>
+  <script src="../js/vue.js"></script>
+</head>
+<!-- 
+  Vue中的MVVM
+  M：model模型 Vue中的data数据
+  V：viewm视图 Vue中的div模板代码
+  VM：viewmodel视图模型 Vue实例
+  观察发现：
+  1.data中所有属性，最后都出现在了vm身上
+  2.vm身上所有的属性 及 Vue原型上的所有属性，都可以在模板中直接使用
+  VM中有的属性，V中都能访问
+ -->
+<body>
+  <!-- v view -->
+  <div id="app"> 
+    <h1>学校名称：{{name}}</h1>
+    <h1>学校地址：{{address}}</h1>
+  </div>
+  <script>
+    const vm = new Vue({// vm  viewmodel
+      el: '#app',
+      data() {
+        return {// m  model 模型
+          name: '华中',
+          address: '中国',
+        }
+      }
+      
+    })
+    console.log(vm);
+  </script>
+</body>
+</html>

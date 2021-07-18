@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>el与data的两种写法</title>
+  <script src="../js/vue.js"></script>
+</head>
+<div id="app">
+  <h1>你好，{{name}}</h1>
+</div>
+<body>
+  <script>
+    const v = new Vue({
+      // el的第一种写法
+      // el: '#app',
+      // data的第一种写法：对象式
+      // data: {
+      //   name: 'Vue'
+      // }
+      // data的第二种写法：函数式
+      // data: function() {
+      //   // return 的目的在于当模板中多个地方用到的数据不是同一份，保证互不影响
+      //   return{
+
+      //   }
+      // }
+      // 函数式的简写：
+      // 不能写成箭头函数，因为箭头函数没有自己的this，this只想外层的this
+      data() {
+        // 当前的this是vue实例对象
+        // console.log(this);
+        return{
+          name: 'Vue'
+        }
+      }
+    })
+    // el的第二种写法
+    v.$mount('#app')
+  </script>
+</body>
+</html>
