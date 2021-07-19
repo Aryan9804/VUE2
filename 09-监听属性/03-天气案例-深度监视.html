@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>天气案例-深度监视</title>
+  <script src="../js/vue.js"></script>
+</head>
+<!-- 
+  深度监视：
+    1.Vue中的watch默认不监测对象内部值的改变
+    2.配置deep:true可以监测对象内部值改变
+  备注：
+    1.Vue自身可以监测对象内部值的改变，但Vue提供的watch默认不可以
+    2.使用watch时可以根据数据的具体结构，决定是否采用深度监视
+ -->
+<body>
+  <div id="app">
+    <h2>今天天气很{{showInfo}}</h2>
+    <button @click="changeStatus">切换天气</button>
+    <h3>a的值是：{{nummber.a}}</h3>
+    <h3>b的值是：{{nummber.b}}</h3>
+    <button @click="nummber.a++">点我a+1</button>
+    <button @click="nummber.b++">点我b+1</button>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          isHot: true,
+          nummber: {
+            a: 1,
+            b: 2
+          }
+        }
+      },
+      methods: {
+        changeStatus() {
+          // console.log(this);
+          this.isHot = !this.isHot
+        }
+      },
+      computed: {
+        showInfo() {
+          return this.isHot ? '炎热' : '凉爽'
+        }
+      },
+      watch: {
+        isHot: {
+          // 当isHot发生改变的时候，handler被调用
+          // handler有两个参数，可以传递两个值
+          // 一个是被监视对象修改之前的数据和修改之后的数据
+          immediate: true, // 初始化时让handler调用一下
+          handler(newValue, oldValue) {
+            console.log('handler被调用了');
+            console.log('修改之前isHot：', oldValue);
+            console.log('修改之后isHot：', newValue);
+
+          }
+        },
+        // 监听nummber.a
+        'nummber.a': {
+          handler() {
+            console.log('a变了');
+          }
+        },
+        // 监听nummber
+        // 注意：nummber.a 或者 nummber.b 改变时是不会触发的
+        // 只有当nummber改变了才算是改变了
+        nummber: {
+          handler() {
+            console.log('num变了');
+          }
+        },
+        // 深度监听
+        // 开启了深度监听的就可以监听到对象内部的数据改变
+        nummber: {
+          deep: true,
+          handler() {
+            console.log('numm开启了深度监听');
+          }
+        }
+      },
+
+    })
+  </script>
+</body>
+
+</html>

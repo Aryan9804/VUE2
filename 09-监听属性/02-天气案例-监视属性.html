@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>天气案例</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h2>今天天气很{{showInfo}}</h2>
+    <button @click="changeStatus">切换天气</button>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          isHot: true
+        }
+      },
+      methods: {
+        changeStatus() {
+          // console.log(this);
+          this.isHot = !this.isHot
+        }
+      },
+      computed: {
+        showInfo() {
+          return this.isHot ? '炎热' : '凉爽'
+        }
+      },
+      watch: {
+        isHot: {
+          // 当isHot发生改变的时候，handler被调用
+          // handler有两个参数，可以传递两个值
+          // 一个是被监视对象修改之前的数据和修改之后的数据
+          immediate: true,// 初始化时让handler调用一下
+          handler(newValue, oldValue) {
+            console.log('handler被调用了');
+            console.log('修改之前isHot：',oldValue);
+            console.log('修改之后isHot：',newValue);
+            
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>
