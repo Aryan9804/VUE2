@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>基本列表</title>
+  <script src="../js/vue.js"></script>
+</head>
+<!-- 
+  v-for指令
+    1.用于展示列表数据
+    2.语法：v-for="(item, index) in xxx" :key="yyy"
+    3.可遍历：数组、对象、字符串（用得少）、指定次数（用得少）
+ -->
+
+<body>
+  <div id="app">
+    <!-- v-for遍历数组 -->
+    <h2>人员列表</h2>
+    <ul>
+      <!-- 
+        当使用到v-for来遍历数据的时候，必须使用key来绑定数据的唯一标识
+        v-for="(i, index) in arr"
+        i:每一次遍历的单个元素的值
+        index：遍历的索引值
+        可以使用索引值来让key绑定以此来标识每一个标签的唯一性
+        v-for遍历了几次就生成几个li标签展示每次遍历到的值
+       -->
+      <li v-for="(p, index) in persons" :key="index">
+        {{p.name}}-{{p.age}}-{{index}}
+      </li>
+    </ul>
+
+    <!-- v-for遍历对象 -->
+    <h2>汽车信息</h2>
+    <ul>
+      <li v-for="(value, key) in car" :key="key">{{key}}-{{value}}</li>
+    </ul>
+
+    <!-- v-for遍历字符串 -->
+    <h2>测试字符串</h2>
+    <ul>
+      <li v-for="(char, index) in str" :key="index">{{char}}-{{index}}</li>
+    </ul>
+
+    <!-- v-for遍历指定次数 -->
+    <h2>遍历指定次数</h2>
+    <ul>
+      <li v-for="(nummber, index) in 5" :key="index">{{nummber}}-{{index}}</li>
+    </ul>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          persons: [{
+              id: '001',
+              name: '张三',
+              age: 18
+            },
+            {
+              id: '002',
+              name: '李四',
+              age: 19
+            },
+            {
+              id: '003',
+              name: '王五',
+              age: 20
+            }
+          ],
+          car: {
+            name: '奥迪RS7',
+            price: '2000k',
+            color: '黑色'
+          },
+          str: 'hello'
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
